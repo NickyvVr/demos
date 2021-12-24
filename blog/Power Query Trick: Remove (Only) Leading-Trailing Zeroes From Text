@@ -1,0 +1,7 @@
+let
+    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjAwMDQyBmITAwOlWB2QQEhqRQmU6ZxRlFlckptYDOYrKAQn5pUkGjjnJJYWQ1QrGATn5Zcr5CbmAQ2CGQA00De1qKhSAa7dQAEmp6DgkVhQUKngl1quEJmaWKSgAJKKBQA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [TextColumn = _t]),
+    #"Added TrimStart" = Table.AddColumn(Source, "TrimStart", each Text.TrimStart( [TextColumn] , "0")),
+    #"Added TrimEnd" = Table.AddColumn(#"Added TrimStart", "TrimEnd", each Text.TrimEnd([TextColumn], "0")),
+    #"Added Trim" = Table.AddColumn(#"Added TrimEnd", "Trim", each Text.Trim([TextColumn], "0"))
+in
+    #"Added Trim"
